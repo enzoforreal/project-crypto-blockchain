@@ -2,10 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/enzoforreal/project-crypto-blockchain/blockchain"
-	"github.com/gorilla/mux"
+	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/enzoforreal/project-crypto-blockchain/blockchain"
+	"github.com/gorilla/mux"
 )
 
 func main() {
