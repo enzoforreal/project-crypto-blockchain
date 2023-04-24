@@ -9,7 +9,7 @@ import (
 	"github.com/enzoforreal/project-crypto-blockchain/blockchain"
 )
 
-// RegisterNode : Enregistre un nouveau noeud sur le réseau
+// Enregistre un nouveau noeud sur le réseau
 func RegisterNode(address string, nodes []string) error {
 	reqData := map[string][]string{
 		"nodes": nodes,
@@ -33,7 +33,7 @@ func RegisterNode(address string, nodes []string) error {
 	return nil
 }
 
-// ResolveConflicts : Résout les conflits de chaîne en remplaçant la chaîne actuelle par la plus longue
+// Résout les conflits de chaîne en remplaçant la chaîne actuelle par la plus longue
 func ResolveConflicts(nodes []string) error {
 	maxLength := 0
 	var newChain []*blockchain.Block
