@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-// BlockChain : La structure de la blockchain
+//  structure de la blockchain
 type BlockChain struct {
 	Chain               []*Block        // La liste des blocs de la blockchain
 	CurrentTransactions []Transaction   // La liste des transactions en attente
 	Nodes               map[string]bool // La liste des noeuds du réseau
 }
 
-// Block : La structure d'un bloc
+// structure d'un bloc
 type Block struct {
 	Index        int           // L'index du bloc dans la chaîne
 	Timestamp    time.Time     // La date et l'heure de création du bloc
@@ -24,7 +24,7 @@ type Block struct {
 	Nonce        int           // Le nonce utilisé pour le minage
 }
 
-// NewBlockchain : Crée une nouvelle instance de blockchain
+//  Crée une nouvelle instance de blockchain
 func NewBlockchain() *BlockChain {
 	chain := make([]*Block, 0)
 	transactions := make([]Transaction, 0)
@@ -36,25 +36,25 @@ func NewBlockchain() *BlockChain {
 	return &BlockChain{Chain: chain, CurrentTransactions: transactions, Nodes: nodes}
 }
 
-// createGenesisBlock : Crée le bloc initial de la blockchain
+//  Crée le bloc initial de la blockchain
 func createGenesisBlock() *Block {
 	genesis := &Block{Index: 0, Timestamp: time.Now(), Transactions: []Transaction{}, PrevHash: "", Nonce: 0}
 	genesis.Hash = hashBlock(genesis)
 	return genesis
 }
 
-// AddTransaction : Ajoute une transaction à la liste des transactions en attente
+//  Ajoute une transaction à la liste des transactions en attente
 func (bc *BlockChain) AddTransaction(t Transaction) int {
 	bc.CurrentTransactions = append(bc.CurrentTransactions, t)
 	return len(bc.Chain) + 1
 }
 
-// MineBlock : Mine un nouveau bloc à partir des transactions en attente
+//  Mine un nouveau bloc à partir des transactions en attente
 func (bc *BlockChain) MineBlock() *Block {
 	lastBlock := bc.Chain[len(bc.Chain)-1]
 	newBlock := &Block{Index: lastBlock.Index + 1, Timestamp: time.Now(), Transactions: bc.CurrentTransactions, PrevHash: lastBlock.Hash, Nonce: 0}
 
-	// Trouver le nonce pour le minage
+	//Trouver le nonce pour le minage
 	for !validateBlock(newBlock) {
 		newBlock.Nonce++
 		newBlock.Hash = hashBlock(newBlock)
@@ -66,12 +66,12 @@ func (bc *BlockChain) MineBlock() *Block {
 	return newBlock
 }
 
-// RegisterNode : Ajoute un nouveau noeud à la liste des noeuds
+//  Ajoute un nouveau noeud à la liste des noeuds
 func (bc *BlockChain) RegisterNode(address string) {
 	bc.Nodes[address] = true
 }
 
-// isValidChain : Vérifie si une chaîne de blocs est valide
+//  Vérifie si une chaîne de blocs est valide
 func isValidChain(chain []Block) bool {
 	prevHash := ""
 	for _, block := range chain {
@@ -88,7 +88,7 @@ func isValidChain(chain []Block) bool {
 	return true
 }
 
-// ResolveConflicts : Résout les conflits de chaîne en remplaçant la chaîne courante par la chaîne la plus longue et sécurisée du réseau
+//  Résout les conflits de chaîne en remplaçant la chaîne courante par la chaîne la plus longue et sécurisée du réseau
 func (bc *BlockChain) ResolveConflicts() bool {
 	var newChain []*Block
 	maxLength := len(bc.Chain)
