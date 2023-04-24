@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	// Créer une nouvelle instance de blockchain
+
 	chain := blockchain.NewBlockchain()
 
 	// Configurer le routeur HTTP
@@ -30,12 +30,12 @@ func main() {
 		}
 		defer r.Body.Close()
 
-		// Ajouter la transaction à la blockchain
+		
 		chain.AddTransaction(t)
 	}).Methods("POST")
 
 	router.HandleFunc("/mine", func(w http.ResponseWriter, r *http.Request) {
-		// Miner un nouveau bloc
+		
 		chain.MineBlock()
 	}).Methods("POST")
 
@@ -57,10 +57,10 @@ func main() {
 	}).Methods("POST")
 
 	router.HandleFunc("/nodes/resolve", func(w http.ResponseWriter, r *http.Request) {
-		// Résoudre les conflits de chaîne
+		
 		chain.ResolveConflicts()
 	}).Methods("GET")
 
-	// Lancer le serveur HTTP
+	
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
