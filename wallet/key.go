@@ -11,7 +11,7 @@ import (
 	"math/big"
 )
 
-// GenerateKeyPair : Génère une paire de clés publique/privée
+// Génère une paire de clés publique/privée
 func GenerateKeyPair() (*ecdsa.PrivateKey, []byte, error) {
 	privKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
@@ -22,7 +22,7 @@ func GenerateKeyPair() (*ecdsa.PrivateKey, []byte, error) {
 	return privKey, pubKey, nil
 }
 
-// SavePrivateKey : Stocke la clé privée dans un fichier
+// Stocke la clé privée dans un fichier
 func SavePrivateKey(filename string, Key *ecdsa.PrivateKey) error {
 	keyBytes, err := x509.MarshalECPrivateKey(Key)
 	if err != nil {
@@ -33,7 +33,7 @@ func SavePrivateKey(filename string, Key *ecdsa.PrivateKey) error {
 	return ioutil.WriteFile(filename, keyPem, 0600)
 }
 
-// LoadPrivateKey : Charge la clé privée à partir d'un fichier
+// Charge la clé privée à partir d'un fichier
 func LoadPrivateKey(filename string) (*ecdsa.PrivateKey, error) {
 	keyPem, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -53,7 +53,7 @@ func LoadPrivateKey(filename string) (*ecdsa.PrivateKey, error) {
 	return Key, nil
 }
 
-// SignTransaction : Signe une transaction avec la clé privée
+// Signe une transaction avec la clé privée
 func SignTransaction(key *ecdsa.PrivateKey, txHash []byte) ([]byte, []byte, error) {
 	r, s, err := ecdsa.Sign(rand.Reader, key, txHash)
 	if err != nil {
@@ -64,7 +64,7 @@ func SignTransaction(key *ecdsa.PrivateKey, txHash []byte) ([]byte, []byte, erro
 	return rBytes, sBytes, nil
 }
 
-// VerifyTransaction : Vérifie la signature de la transaction avec la clé publique
+// Vérifie la signature de la transaction avec la clé publique
 func VerifyTransaction(pubKey []byte, txHash []byte, rBytes []byte, sBytes []byte) bool {
 	xBytes := pubKey[:len(pubKey)/2]
 	yBytes := pubKey[len(pubKey)/2:]
